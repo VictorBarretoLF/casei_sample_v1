@@ -1,21 +1,22 @@
 package domain.sample;
 
 import java.time.Instant;
+import java.util.UUID;
 
 public class Sample {
-    private final String id;
+    private final UUID id;
     private final String name;
     private final Instant createdAt;
     private final Instant updatedAt;
 
-    public Sample(String id, String name, Instant createdAt, Instant updatedAt) {
+    public Sample(UUID id, String name, Instant createdAt, Instant updatedAt) {
         this.id = id;
         this.name = name;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
     }
 
-    public String getId() {
+    public UUID getId() {
         return id;
     }
 
