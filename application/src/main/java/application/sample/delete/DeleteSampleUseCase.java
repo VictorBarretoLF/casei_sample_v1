@@ -17,7 +17,7 @@ public class DeleteSampleUseCase extends UseCase<UUID, Void> {
         sampleGateway.findById(id)
                 .orElseThrow(() -> new SampleNotFoundException(id));
 
-        sampleGateway.deleteById(id.toString());
+        sampleGateway.deleteById(id);
 
         return null;
     }

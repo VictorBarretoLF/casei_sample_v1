@@ -11,5 +11,5 @@ public interface SampleGateway {
 
     Pagination<Sample> findAll(SampleSearchQuery query);
 
-    void deleteById(String id);
+    void deleteById(UUID id);
 }
