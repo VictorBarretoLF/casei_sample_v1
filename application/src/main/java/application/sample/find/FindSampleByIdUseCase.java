@@ -1,7 +1,7 @@
 package application.sample.find;
 
 import application.UseCase;
-import application.sample.output.SampleOutput;
+import application.sample.dto.output.SampleOutput;
 import domain.sample.exceptions.SampleNotFoundException;
 import domain.sample.SampleGateway;
 import java.util.UUID;

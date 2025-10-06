@@ -1,8 +1,8 @@
 package application.sample.create;
 
 import application.UseCase;
-import application.sample.input.CreateSampleInput;
-import application.sample.output.SampleOutput;
+import application.sample.dto.input.CreateSampleInput;
+import application.sample.dto.output.SampleOutput;
 import domain.sample.Sample;
 import domain.sample.SampleGateway;
 

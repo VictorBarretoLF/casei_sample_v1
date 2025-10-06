@@ -1,4 +1,4 @@
-package application.sample.input;
+package application.sample.dto.input;
 
 import java.util.UUID;
 

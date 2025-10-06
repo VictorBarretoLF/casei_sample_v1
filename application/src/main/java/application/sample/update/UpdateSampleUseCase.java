@@ -1,8 +1,8 @@
 package application.sample.update;
 
 import application.UseCase;
-import application.sample.input.UpdateSampleInput;
-import application.sample.output.SampleOutput;
+import application.sample.dto.input.UpdateSampleInput;
+import application.sample.dto.output.SampleOutput;
 import domain.sample.Sample;
 import domain.sample.SampleGateway;
 import domain.sample.exceptions.SampleNotFoundException;

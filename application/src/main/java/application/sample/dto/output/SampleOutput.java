@@ -1,4 +1,4 @@
-package application.sample.output;
+package application.sample.dto.output;
 
 import domain.sample.Sample;
 import java.time.Instant;
