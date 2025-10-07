@@ -11,7 +11,6 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 
-import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.never;
@@ -36,10 +35,9 @@ class DeleteSampleUseCaseTest extends UseCaseTest {
         when(sampleGateway.findById(sampleId)).thenReturn(Optional.of(sample));
 
         // When
-        Void result = deleteSampleUseCase.execute(sampleId);
+        deleteSampleUseCase.execute(sampleId);
 
         // Then
-        assertNull(result);
         verify(sampleGateway, times(1)).findById(sampleId);
         verify(sampleGateway, times(1)).deleteById(sampleId);
     }
@@ -101,10 +99,11 @@ class DeleteSampleUseCaseTest extends UseCaseTest {
         when(sampleGateway.findById(sampleId)).thenReturn(Optional.of(sample));
 
         // When
-        Void result = deleteSampleUseCase.execute(sampleId);
+        deleteSampleUseCase.execute(sampleId);
 
         // Then
-        assertNull(result);
+        // No assertion needed - void method completes successfully
+        verify(sampleGateway, times(1)).deleteById(sampleId);
     }
 
     @Test
