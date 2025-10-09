@@ -36,6 +36,6 @@ public class SampleGatewayImpl implements SampleGateway {
 
     @Override
     public void deleteById(UUID id) {
-
+        repository.deleteById(id);
     }
 }

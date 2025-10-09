@@ -1,6 +1,7 @@
 package infrastructure.config.usecases;
 
 import application.sample.create.CreateSampleUseCase;
+import application.sample.delete.DeleteSampleUseCase;
 import application.sample.find.FindSampleByIdUseCase;
 import application.sample.update.UpdateSampleUseCase;
 import domain.sample.SampleGateway;
@@ -22,5 +23,10 @@ public class SampleUseCasesConfig {
     @Bean
     public UpdateSampleUseCase updateSampleUseCase(SampleGateway sampleGateway) {
         return new UpdateSampleUseCase(sampleGateway);
+    }
+
+    @Bean
+    public DeleteSampleUseCase deleteSampleUseCase(SampleGateway sampleGateway) {
+        return new DeleteSampleUseCase(sampleGateway);
     }
 }

@@ -1,6 +1,7 @@
 package infrastructure.sample.api.controller;
 
 import application.sample.create.CreateSampleUseCase;
+import application.sample.delete.DeleteSampleUseCase;
 import application.sample.find.FindSampleByIdUseCase;
 import application.sample.update.UpdateSampleUseCase;
 import infrastructure.sample.api.request.SampleRequest;
@@ -10,6 +11,7 @@ import java.util.UUID;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,6 +27,7 @@ public class SampleController {
     private final CreateSampleUseCase createSampleUseCase;
     private final FindSampleByIdUseCase findSampleByIdUseCase;
     private final UpdateSampleUseCase updateSampleUseCase;
+    private final DeleteSampleUseCase deleteSampleUseCase;
 
     @PostMapping
     public ResponseEntity<SampleResponse> createSample(@Valid @RequestBody SampleRequest request) {
@@ -44,5 +47,11 @@ public class SampleController {
             @Valid @RequestBody SampleRequest request) {
         final var output = updateSampleUseCase.execute(request.toUpdateSample(id));
         return ResponseEntity.ok(SampleResponse.fromOutput(output));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteSample(@PathVariable UUID id) {
+        deleteSampleUseCase.execute(id);
+        return ResponseEntity.noContent().build();
     }
 }
