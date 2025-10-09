@@ -8,6 +8,8 @@ import infrastructure.sample.persistence.table.SampleTable;
 import java.util.Optional;
 import java.util.UUID;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -26,6 +28,10 @@ public class SampleGatewayImpl implements SampleGateway {
     public Optional<Sample> findById(UUID id) {
         return repository.findById(id)
                 .map(SampleTable::toDomain);
+    }
+
+    public void findAll(Pageable pageable) {
+        repository.findAll(pageable);
     }
 
     @Override
