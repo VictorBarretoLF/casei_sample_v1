@@ -1,4 +1,4 @@
-package infrastructure.sample.dto;
+package infrastructure.sample.api.request;
 
 import application.sample.dto.input.CreateSampleInput;
 
