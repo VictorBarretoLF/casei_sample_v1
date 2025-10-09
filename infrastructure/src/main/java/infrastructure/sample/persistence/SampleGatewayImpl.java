@@ -25,7 +25,8 @@ public class SampleGatewayImpl implements SampleGateway {
 
     @Override
     public Optional<Sample> findById(UUID id) {
-        return Optional.empty();
+        return repository.findById(id)
+                .map(SampleTable::toDomain);
     }
 
     @Override

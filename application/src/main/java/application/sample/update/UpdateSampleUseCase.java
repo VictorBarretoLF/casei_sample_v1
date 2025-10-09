@@ -16,17 +16,11 @@ public class UpdateSampleUseCase extends UseCase<UpdateSampleInput, SampleOutput
 
     @Override
     public SampleOutput execute(UpdateSampleInput input) {
-        sampleGateway.findById(input.id())
+        final var sample = sampleGateway.findById(input.id())
                 .orElseThrow(() -> new SampleNotFoundException(input.id()));
 
-        final Sample updatedSample = new Sample(
-                input.id(),
-                input.name(),
-                null,
-                null
-        );
-
-        final Sample savedSample = sampleGateway.save(updatedSample);
+        final var updatedSample = sample.with(input.name());
+        final var savedSample = sampleGateway.save(updatedSample);
 
         return SampleOutput.from(savedSample);
     }

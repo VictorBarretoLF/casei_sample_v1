@@ -16,6 +16,10 @@ public class Sample {
         this.updatedAt = updatedAt;
     }
 
+    public Sample with(String name) {
+        return new Sample(this.id, name, this.createdAt, Instant.now());
+    }
+
     public UUID getId() {
         return id;
     }
