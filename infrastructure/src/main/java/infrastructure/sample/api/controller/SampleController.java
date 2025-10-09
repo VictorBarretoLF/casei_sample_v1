@@ -3,10 +3,12 @@ package infrastructure.sample.api.controller;
 import application.sample.create.CreateSampleUseCase;
 import infrastructure.sample.api.request.CreateSampleRequest;
 import infrastructure.sample.api.response.SampleResponse;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,8 +19,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class SampleController {
     private final CreateSampleUseCase createSampleUseCase;
 
-    @GetMapping
-    public ResponseEntity<SampleResponse> getSample(@RequestBody CreateSampleRequest request) {
+    @PostMapping
+    public ResponseEntity<SampleResponse> createSample(@Valid @RequestBody CreateSampleRequest request) {
         final var output = createSampleUseCase.execute(request.toSampleInput());
         return ResponseEntity.status(HttpStatus.CREATED).body(SampleResponse.fromOutput(output));
     }
