@@ -1,6 +1,5 @@
 package infrastructure.sample.persistence;
 
-import domain.pagination.Pagination;
 import domain.sample.Sample;
 import domain.sample.SampleGateway;
 import domain.sample.SampleSearchQuery;
@@ -27,11 +26,6 @@ public class SampleGatewayImpl implements SampleGateway {
     public Optional<Sample> findById(UUID id) {
         return repository.findById(id)
                 .map(SampleTable::toDomain);
-    }
-
-    @Override
-    public Pagination<Sample> findAll(SampleSearchQuery query) {
-        return null;
     }
 
     @Override
