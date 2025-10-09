@@ -6,9 +6,12 @@ import application.sample.find.FindSampleByIdUseCase;
 import application.sample.update.UpdateSampleUseCase;
 import infrastructure.sample.api.request.SampleRequest;
 import infrastructure.sample.api.response.SampleResponse;
+import infrastructure.sample.persistence.SampleGatewayImpl;
+import infrastructure.sample.persistence.table.SampleTable;
 import jakarta.validation.Valid;
 import java.util.UUID;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
@@ -31,6 +34,8 @@ public class SampleController {
     private final UpdateSampleUseCase updateSampleUseCase;
     private final DeleteSampleUseCase deleteSampleUseCase;
 
+    private final SampleGatewayImpl sampleGateway;
+
     @PostMapping
     public ResponseEntity<SampleResponse> createSample(@Valid @RequestBody SampleRequest request) {
         final var output = createSampleUseCase.execute(request.toSampleInput());
@@ -44,8 +49,9 @@ public class SampleController {
     }
 
     @GetMapping
-    public void findAllSamples(@PageableDefault Pageable pageable) {
-
+    public ResponseEntity<Page<SampleTable>> findAllSamples(@PageableDefault Pageable pageable) {
+        final var output = sampleGateway.findAll()
+        return ResponseEntity.ok(output);
     }
 
     @PutMapping("/{id}")

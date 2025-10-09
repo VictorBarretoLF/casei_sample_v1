@@ -1,5 +1,6 @@
 package infrastructure.sample.persistence;
 
+import domain.pagination.PageFilter;
 import domain.sample.Sample;
 import domain.sample.SampleGateway;
 import domain.sample.SampleSearchQuery;
@@ -9,6 +10,7 @@ import java.util.Optional;
 import java.util.UUID;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
@@ -30,12 +32,13 @@ public class SampleGatewayImpl implements SampleGateway {
                 .map(SampleTable::toDomain);
     }
 
-    public void findAll(Pageable pageable) {
-        repository.findAll(pageable);
-    }
-
     @Override
     public void deleteById(UUID id) {
         repository.deleteById(id);
+    }
+
+    public Page<SampleTable> findAll(SampleSearchQuery query) {
+        final var pageRequest = PageRequest.of(query.page(), query.perPage());
+        return repository.findAll(pageRequest);
     }
 }
