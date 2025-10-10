@@ -4,6 +4,8 @@ import application.sample.create.CreateSampleUseCase;
 import application.sample.delete.DeleteSampleUseCase;
 import application.sample.find.FindSampleByIdUseCase;
 import application.sample.update.UpdateSampleUseCase;
+import domain.query.PageFilter;
+import domain.sample.SampleSearchQuery;
 import infrastructure.sample.api.request.SampleRequest;
 import infrastructure.sample.api.response.SampleResponse;
 import infrastructure.sample.persistence.SampleGatewayImpl;
@@ -18,6 +20,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -49,10 +52,28 @@ public class SampleController {
     }
 
     @GetMapping
-    public ResponseEntity<Page<SampleTable>> findAllSamples(@PageableDefault Pageable pageable) {
-        final var output = sampleGateway.findAll()
-        return ResponseEntity.ok(output);
+    public ResponseEntity<Object> findAllSamples(@ModelAttribute PageFilter params) {
+//        final var output = sampleGateway.findAll(pageable);
+        return ResponseEntity.ok(Page.empty());
     }
+
+//    {
+//        "content": [],
+//        "pageable": "INSTANCE",
+//            "last": true,
+//            "totalElements": 0,
+//            "totalPages": 1,
+//            "first": true,
+//            "size": 0,
+//            "number": 0,
+//            "sort": {
+//        "empty": true,
+//                "sorted": false,
+//                "unsorted": true
+//    },
+//        "numberOfElements": 0,
+//            "empty": true
+//    }
 
     @PutMapping("/{id}")
     public ResponseEntity<SampleResponse> updateSample(
