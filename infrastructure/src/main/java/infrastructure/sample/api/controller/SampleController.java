@@ -53,27 +53,9 @@ public class SampleController {
 
     @GetMapping
     public ResponseEntity<Object> findAllSamples(@ModelAttribute PageFilter params) {
-//        final var output = sampleGateway.findAll(pageable);
-        return ResponseEntity.ok(Page.empty());
+        final var output = sampleGateway.findAll(params);
+        return ResponseEntity.ok(output);
     }
-
-//    {
-//        "content": [],
-//        "pageable": "INSTANCE",
-//            "last": true,
-//            "totalElements": 0,
-//            "totalPages": 1,
-//            "first": true,
-//            "size": 0,
-//            "number": 0,
-//            "sort": {
-//        "empty": true,
-//                "sorted": false,
-//                "unsorted": true
-//    },
-//        "numberOfElements": 0,
-//            "empty": true
-//    }
 
     @PutMapping("/{id}")
     public ResponseEntity<SampleResponse> updateSample(
