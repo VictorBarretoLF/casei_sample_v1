@@ -55,4 +55,8 @@ public class SampleGatewayImpl implements SampleGateway {
                 page.isLast()
         );
     }
+
+    public Page<SampleTable> findAll(Pageable query) {
+        return repository.findAll(query);
+    }
 }

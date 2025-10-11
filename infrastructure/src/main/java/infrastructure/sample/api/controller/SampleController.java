@@ -57,6 +57,12 @@ public class SampleController {
         return ResponseEntity.ok(output);
     }
 
+    @GetMapping("/v2")
+    public ResponseEntity<Object> findAllSamplesV2(Pageable pageable) {
+        final Page<SampleTable> output = sampleGateway.findAll(pageable);
+        return ResponseEntity.ok(output);
+    }
+
     @PutMapping("/{id}")
     public ResponseEntity<SampleResponse> updateSample(
             @PathVariable UUID id,
