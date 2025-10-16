@@ -2,8 +2,11 @@ package infrastructure.sample.api.controller;
 
 import application.sample.create.CreateSampleUseCase;
 import application.sample.delete.DeleteSampleUseCase;
+import application.sample.dto.output.SampleOutput;
 import application.sample.find.FindSampleByIdUseCase;
+import application.sample.findAll.FindAllSamplesUseCase;
 import application.sample.update.UpdateSampleUseCase;
+import domain.pagination.Pagination;
 import domain.query.PageFilter;
 import domain.sample.SampleSearchQuery;
 import infrastructure.mapper.PageFilterConverter;
@@ -24,7 +27,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -40,6 +42,7 @@ public class SampleController {
     private final FindSampleByIdUseCase findSampleByIdUseCase;
     private final UpdateSampleUseCase updateSampleUseCase;
     private final DeleteSampleUseCase deleteSampleUseCase;
+    private final FindAllSamplesUseCase findAllSamplesUseCase;
 
     private final SampleGatewayImpl sampleGateway;
 
@@ -56,22 +59,9 @@ public class SampleController {
     }
 
     @GetMapping
-    public ResponseEntity<Object> findAllSamplesPaged(Pageable pageable) {
-        var result = sampleGateway.findAllSortable(PageFilterConverter.from(pageable));
+    public ResponseEntity<Pagination<SampleOutput>> findAllSamplesPaged(Pageable pageable) {
+        var result = findAllSamplesUseCase.execute(PageFilterConverter.from(pageable));
         return ResponseEntity.ok(result);
-    }
-
-    @GetMapping("/v2")
-    public ResponseEntity<Object> findAllSamplesV2(Pageable pageable) {
-        final var sort = pageable.getSort();
-        for (Sort.Order order : sort) {
-            System.out.println("Property: " + order.getProperty() + ", Direction: " + order.getDirection());
-            new PageFilter.Order(order.getProperty(), PageFilter.Direction.fromString(order.getDirection().name()));
-            new Sort.Order(order.getDirection(), order.getProperty());
-        }
-        System.out.println(sort);
-        final Page<SampleTable> output = sampleGateway.findAll(pageable);
-        return ResponseEntity.ok(output);
     }
 
     @PutMapping("/{id}")

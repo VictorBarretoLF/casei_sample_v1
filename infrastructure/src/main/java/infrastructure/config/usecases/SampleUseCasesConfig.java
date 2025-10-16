@@ -3,6 +3,7 @@ package infrastructure.config.usecases;
 import application.sample.create.CreateSampleUseCase;
 import application.sample.delete.DeleteSampleUseCase;
 import application.sample.find.FindSampleByIdUseCase;
+import application.sample.findAll.FindAllSamplesUseCase;
 import application.sample.update.UpdateSampleUseCase;
 import domain.sample.SampleGateway;
 import org.springframework.context.annotation.Bean;
@@ -28,5 +29,10 @@ public class SampleUseCasesConfig {
     @Bean
     public DeleteSampleUseCase deleteSampleUseCase(SampleGateway sampleGateway) {
         return new DeleteSampleUseCase(sampleGateway);
+    }
+
+    @Bean
+    public FindAllSamplesUseCase findAllSamplesUseCase(SampleGateway sampleGateway) {
+        return new FindAllSamplesUseCase(sampleGateway);
     }
 }
