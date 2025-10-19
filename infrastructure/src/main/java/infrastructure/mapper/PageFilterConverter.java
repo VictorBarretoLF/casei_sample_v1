@@ -1,14 +1,13 @@
 package infrastructure.mapper;
 
 import domain.query.PageFilter;
-import java.util.Collections;
 import java.util.List;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 
 public class PageFilterConverter {
-    public static PageFilter from(Pageable pageable) {
+    public static PageFilter fromPageable(Pageable pageable) {
         List<PageFilter.Order> sorts = pageable.getSort()
                 .stream()
                 .map(sort -> new PageFilter.Order(
