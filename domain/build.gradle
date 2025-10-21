@@ -4,9 +4,6 @@ plugins {
 
 group = "com.casei360.domain"
 
-dependencies {
-}
-
 configurations {
     testClasses {
         extendsFrom(testImplementation)
