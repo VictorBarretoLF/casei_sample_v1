@@ -56,25 +56,4 @@ public class SampleGatewayImpl implements SampleGateway {
                 page.isLast()
         );
     }
-
-    public Pagination<Sample> findAllSortable(PageFilter query) {
-        final var pageRequest = PageFilterConverter.toPageRequest(query);
-        final Page<SampleTable> page = repository.findAll(pageRequest);
-
-        return new Pagination<>(
-                page.getNumber(),
-        page.getSize(),
-                page.getTotalElements(),
-                page.getTotalPages(),
-                page.getContent().stream()
-                        .map(SampleTable::toDomain)
-                        .toList(),
-                page.isFirst(),
-                page.isLast()
-        );
-    }
-
-    public Page<SampleTable> findAll(Pageable query) {
-        return repository.findAll(query);
-    }
 }

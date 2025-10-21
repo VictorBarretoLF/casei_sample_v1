@@ -2,4 +2,4 @@ rootProject.name = "casei360"
 include 'domain'
 include 'application'
 include 'infrastructure'
-
+include 'integrationTest'
