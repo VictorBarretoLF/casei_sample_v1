@@ -7,6 +7,7 @@ mockito-inline = "5.2.0"
 junit-jupiter = "5.10.1"
 testcontainers = "2.0.1"
 testcontainers-postgresql = "1.21.2"
+testcontainers-junit-jupiter-ver = "1.21.3"
 
 [libraries]
 # Lombok
@@ -30,6 +31,7 @@ junit-jupiter-engine = { group = "org.junit.jupiter", name = "junit-jupiter-engi
 # Testcontainers
 testcontainers-core = { group = "org.testcontainers", name = "testcontainers", version.ref = "testcontainers" }
 testcontainers-postgresql = { group = "org.testcontainers", name = "postgresql", version.ref = "testcontainers-postgresql" }
+testcontainers-junit-jupiter = { group = "org.testcontainers", name = "junit-jupiter", version.ref = "testcontainers-junit-jupiter-ver" }
 
 [plugins]
 spring-boot = { id = "org.springframework.boot", version.ref = "spring-boot" }
