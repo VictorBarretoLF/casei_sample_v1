@@ -33,11 +33,9 @@ dependencies {
     // Test
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation libs.testcontainers.postgresql
-    testImplementation libs.testcontainers
+    testImplementation libs.testcontainers.core
 }
 
 test {
     useJUnitPlatform()
-    testClassesDirs = sourceSets.main.output.classesDirs
-    classpath = sourceSets.main.runtimeClasspath
 }
