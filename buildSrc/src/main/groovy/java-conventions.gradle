@@ -1,6 +1,5 @@
 plugins {
     id("java")
-    id("shared-dependencies")
 }
 
 version '1.0-SNAPSHOT'
@@ -10,11 +9,11 @@ repositories {
 }
 
 dependencies {
-    testImplementation JUNIT_JUPITER_API
-    testImplementation MOCKITO_JUNIT_JUPITER
-    testImplementation MOCKITO_INLINE
+    testImplementation libs.junit.jupiter.api
+    testImplementation libs.mockito.junit.jupiter
+    testImplementation libs.mockito.inline
 
-    testRuntimeOnly JUNIT_JUPITER_ENGINE
+    testRuntimeOnly libs.junit.jupiter.engine
 }
 
 tasks.named("test") {

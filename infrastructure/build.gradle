@@ -1,8 +1,7 @@
 plugins {
     id 'java-conventions'
-    id 'shared-dependencies'
-    id 'org.springframework.boot' version '3.5.6'
-    id 'io.spring.dependency-management' version '1.1.7'
+    alias libs.plugins.spring.boot
+    alias libs.plugins.spring.dependency.management
 }
 
 group = "com.casei360.infrastructure"
@@ -19,19 +18,19 @@ dependencies {
     implementation(project(":application"))
 
     // Lombok
-    compileOnly LOMBOK
-    annotationProcessor LOMBOK
+    compileOnly libs.lombok
+    annotationProcessor libs.lombok
 
     // Spring Boot
-    implementation 'org.springframework.boot:spring-boot-starter-web'
-    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    implementation libs.spring.boot.starter.web
+    implementation libs.spring.boot.starter.data.jpa
+    implementation libs.spring.boot.starter.validation
 
     // PostgreSQL Driver
-    implementation 'org.postgresql:postgresql:42.7.7'
+    implementation libs.postgresql
 
     // Test
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation libs.spring.boot.starter.test
 }
 
 test {
