@@ -17,7 +17,7 @@ public class Sample {
     }
 
     public Sample with(String name) {
-        return new Sample(this.id, name, this.createdAt, Instant.now());
+        return new Sample(this.id, name, this.createdAt, this.updatedAt);
     }
 
     public UUID getId() {

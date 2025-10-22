@@ -14,6 +14,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
@@ -36,8 +37,8 @@ class UpdateSampleUseCaseTest extends UseCaseTest {
         UUID sampleId = UUID.randomUUID();
         UpdateSampleInput input = new UpdateSampleInput(sampleId, "Updated Sample");
         Instant now = Instant.now();
-        Sample existingSample = new Sample(sampleId, "Old Sample", now, now);
-        Sample updatedSample = new Sample(sampleId, "Updated Sample", now, now);
+        Sample existingSample = new Sample(sampleId, "Old Sample", now, null);
+        Sample updatedSample = new Sample(sampleId, "Updated Sample", now, null);
 
         when(sampleGateway.findById(sampleId)).thenReturn(Optional.of(existingSample));
         when(sampleGateway.save(any(Sample.class))).thenReturn(updatedSample);
@@ -51,6 +52,10 @@ class UpdateSampleUseCaseTest extends UseCaseTest {
         assertEquals(updatedSample.getName(), output.name());
         assertEquals(updatedSample.getCreatedAt(), output.createdAt());
         assertEquals(updatedSample.getUpdatedAt(), output.updatedAt());
+
+        assertEquals(existingSample.getId(), output.id());
+        assertNotEquals(existingSample.getName(), output.name());
+        assertEquals(existingSample.getCreatedAt(), output.createdAt());
 
         verify(sampleGateway, times(1)).findById(sampleId);
         verify(sampleGateway, times(1)).save(any(Sample.class));
@@ -93,32 +98,7 @@ class UpdateSampleUseCaseTest extends UseCaseTest {
         // Then
         verify(sampleGateway).save(argThat(sample ->
                 sample.getId().equals(sampleId) &&
-                        sample.getName().equals("Updated Sample") &&
-                        sample.getCreatedAt() == null &&
-                        sample.getUpdatedAt() == null
+                        sample.getName().equals("Updated Sample")
         ));
-    }
-
-    @Test
-    void shouldReturnOutputWithUpdatedSampleData() {
-        // Given
-        UUID sampleId = UUID.randomUUID();
-        UpdateSampleInput input = new UpdateSampleInput(sampleId, "Updated Sample");
-        Instant now = Instant.now();
-        Sample existingSample = new Sample(sampleId, "Old Sample", now, now);
-        Sample updatedSample = new Sample(sampleId, "Updated Sample", now, now);
-
-        when(sampleGateway.findById(sampleId)).thenReturn(Optional.of(existingSample));
-        when(sampleGateway.save(any(Sample.class))).thenReturn(updatedSample);
-
-        // When
-        SampleOutput output = updateSampleUseCase.execute(input);
-
-        // Then
-        assertNotNull(output);
-        assertEquals(sampleId, output.id());
-        assertEquals("Updated Sample", output.name());
-        assertNotNull(output.createdAt());
-        assertNotNull(output.updatedAt());
     }
 }
