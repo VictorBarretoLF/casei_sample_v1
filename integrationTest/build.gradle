@@ -6,38 +6,32 @@ plugins {
 
 group = "com.casei360.integrationTest"
 
-configurations {
-    compileOnly {
-        extendsFrom annotationProcessor
-    }
-}
-
 dependencies {
     // Layers
     implementation(project(":domain"))
     implementation(project(":application"))
     implementation(project(":infrastructure"))
 
-    // Lombok
-    compileOnly libs.lombok
-    annotationProcessor libs.lombok
-
     // Spring Boot - Use libs version catalog instead of hardcoded versions
     implementation libs.spring.boot.starter.web
     implementation libs.spring.boot.starter.data.jpa
     implementation libs.spring.boot.starter.validation
-    implementation libs.spring.boot.starter.test
 
-    // PostgreSQL Driver - Use libs version catalog
-    implementation libs.postgresql
 
-    // TestContainers - Use libs version catalog
-    testImplementation libs.testcontainers.postgresql
-    testImplementation libs.testcontainers.junit.jupiter
-    testImplementation libs.testcontainers.core
+//    // PostgreSQL Driver - Use libs version catalog
+//    implementation libs.postgresql
+//
+//    // TestContainers - Use libs version catalog
+//    testImplementation libs.testcontainers.postgresql
+//    testImplementation libs.testcontainers.junit.jupiter
+//    testImplementation libs.testcontainers.core
+//
+//    // Explicit JUnit Platform to avoid version conflicts
 
-    // Explicit JUnit Platform to avoid version conflicts
-    testImplementation libs.junit.jupiter.api
-    testImplementation libs.junit.jupiter.engine
-    testRuntimeOnly libs.junit.jupiter.engine
+//    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+//    testImplementation libs.junit.jupiter.api
+//    testImplementation libs.mockito.junit.jupiter
+//    testImplementation libs.mockito.inline
+//
+//    testRuntimeOnly libs.junit.jupiter.engine
 }
