@@ -41,7 +41,3 @@ dependencies {
     testImplementation libs.junit.jupiter.engine
     testRuntimeOnly libs.junit.jupiter.engine
 }
-
-test {
-    useJUnitPlatform()
-}
