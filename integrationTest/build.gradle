@@ -29,3 +29,7 @@ dependencies {
     testImplementation libs.testcontainers.junit.jupiter
     testImplementation libs.testcontainers.core
 }
+
+tasks.named('bootJar') {
+    enabled = false
+}
