@@ -3,7 +3,7 @@ import org.junit.jupiter.api.Test;
 class TestingTest {
 
     @Test
-    void shouldCreateSampleSuccessfully() throws Exception {
+    void shouldCreateSampleSuccessfully() {
         System.out.println("Hello World");
     }
 

@@ -1,10 +1,14 @@
 package infrastructure.sample.api.controller;
 
+import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 class SampleControllerTest {
+
+    @Test
+    void shouldCreateSampleSuccessfully() {
+        System.out.println("Hello World");
+    }
 
 }

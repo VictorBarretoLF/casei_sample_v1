@@ -29,7 +29,7 @@ dependencies {
     // PostgreSQL Driver
     implementation libs.postgresql
 
-    // Test
+    // Spring Boot Tests
     testImplementation libs.spring.boot.starter.test
 }
 
