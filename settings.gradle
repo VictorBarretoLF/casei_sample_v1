@@ -1,5 +1,4 @@
 rootProject.name = "casei360"
-include 'domain'
-include 'application'
-include 'infrastructure'
-include 'integrationTest'
+include 'src:domain'
+include 'src:application'
+include 'src:infrastructure'

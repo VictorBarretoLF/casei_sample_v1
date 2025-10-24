@@ -1,0 +1,104 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '3.5.6' apply false
+    id 'io.spring.dependency-management' version '1.1.7' apply false
+}
+
+allprojects {
+    group = 'com.casei360'
+    version = '1.0-SNAPSHOT'
+
+    repositories {
+        mavenCentral()
+    }
+}
+
+subprojects {
+    apply plugin: 'java'
+
+    java {
+        sourceCompatibility = JavaVersion.VERSION_21
+        targetCompatibility = JavaVersion.VERSION_21
+    }
+
+    dependencies {
+        testImplementation 'org.junit.jupiter:junit-jupiter-api:5.11.4'
+        testImplementation 'org.mockito:mockito-junit-jupiter:5.8.0'
+        testImplementation 'org.mockito:mockito-inline:5.2.0'
+        testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.11.4'
+    }
+
+    test {
+        useJUnitPlatform()
+    }
+}
+
+ext {
+    lombokDeps = {
+        compileOnly 'org.projectlombok:lombok'
+        annotationProcessor 'org.projectlombok:lombok'
+    }
+
+    springBootDeps = {
+        implementation 'org.springframework.boot:spring-boot-starter-web'
+        implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+        implementation 'org.springframework.boot:spring-boot-starter-validation'
+        implementation 'org.postgresql:postgresql:42.7.7'
+    }
+}
+
+project(':src:domain') {
+    // Configuration to share test classes with other modules
+    // This allows test fixtures, builders, and helper classes from the domain module
+    // to be reused in application, infrastructure, and integrationTest modules
+    configurations {
+        testArtifacts  // Creates a custom configuration channel for publishing test artifacts
+    }
+
+    // Task to package test classes into a separate JAR file
+    // Produces: domain-1.0-SNAPSHOT-tests.jar containing all compiled test classes
+    // Without this, only main classes would be available to other modules
+    tasks.register('testJar', Jar) {
+        archiveClassifier.set('tests')  // Adds '-tests' suffix to the JAR name
+        from sourceSets.test.output     // Includes all compiled test classes from src/test/java
+    }
+
+    // Publishes the test JAR through the testArtifacts configuration
+    // This makes the test JAR available for other modules to depend on
+    // Usage in other modules: testImplementation project(path: ':src:domain', configuration: 'testArtifacts')
+    artifacts {
+        testArtifacts testJar
+    }
+}
+
+project(':src:application') {
+    dependencies {
+        implementation project(':src:domain')
+
+        testImplementation project(path: ':src:domain', configuration: 'testArtifacts')
+    }
+}
+
+project(':src:infrastructure') {
+    apply plugin: 'org.springframework.boot'
+    apply plugin: 'io.spring.dependency-management'
+
+    configurations {
+        compileOnly {
+            extendsFrom annotationProcessor
+        }
+    }
+
+    dependencies {
+        implementation project(':src:domain')
+        implementation project(':src:application')
+
+        lombokDeps.delegate = delegate
+        lombokDeps()
+
+        springBootDeps.delegate = delegate
+        springBootDeps()
+
+        testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    }
+}
